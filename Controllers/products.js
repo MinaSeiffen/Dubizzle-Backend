@@ -107,12 +107,22 @@ const getProductsBySearchInProperties = async (req, res, next) => {
 
             const locationMatch =
                 !location || productLocation.includes(location.toLowerCase());
-            const bedRoomsMatch =
-                !bedRooms ||
-                (productBedRooms && productBedRooms === bedRooms.toLowerCase());
-            const bathRoomsMatch =
-                !bathRooms ||
-                (productBathRooms && productBathRooms === bathRooms.toLowerCase());
+
+            let bedRoomsMatch = true;
+            if (bedRooms) {
+                const bedRoomsArray = bedRooms.split(',').map(room => room.trim());
+                bedRoomsMatch =
+                    bedRoomsArray.length === 0 ||
+                    bedRoomsArray.includes(productBedRooms);
+            }
+
+            let bathRoomsMatch = true;
+            if (bathRooms) {
+                const bathRoomsArray = bathRooms.split(',').map(room => room.trim());
+                bathRoomsMatch =
+                    bathRoomsArray.length === 0 ||
+                    bathRoomsArray.includes(productBathRooms);
+            }
 
             let areaMatch = true;
             if (area) {
