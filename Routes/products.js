@@ -10,7 +10,8 @@ const {
   getSellerAds,
   getProductsBySearch,
   getProductsBySearchInProperties,
-  deleteAllProductWithIdSeller
+  deleteAllProductWithIdSeller,
+  getMyAdds
 } = require("../Controllers/products");
 const verifyJWT = require("../middleware/verifyJWT");
 
