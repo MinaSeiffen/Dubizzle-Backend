@@ -62,10 +62,10 @@ const handleLogin = async (req, res) => {
   try {
     const user = await userModel.findOne({ email });
 
-    if (!user) return res.sendStatus(404); // Not Found
+    if (!user) return res.status(404).json({message:"That user not found"}); // Not Found
 
     const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) return res.sendStatus(401); // Unauthorized
+    if (!passwordMatch) return res.status(401).json({message:"there is something went wrong"}); // Unauthorized
 
     const roles = Object.values(user.roles);
     const accessToken = jwt.sign(
